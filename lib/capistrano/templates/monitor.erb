@@ -4,7 +4,7 @@ end
 
 Eye.application 'sinatra' do 
   
-  working_dir <%= current_path %>
+  working_dir '<%= current_path %>'
   env 'BUNDLE_GEMFILE' => '<%= current_path %>/Gemfile'
   
   stdall 'log/trash.log'

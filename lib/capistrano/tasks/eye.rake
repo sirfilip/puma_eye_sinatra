@@ -4,10 +4,12 @@ namespace :eye do
 
   desc "setup puma config"
   task :setup_puma_config do 
-    template_path = File.expand_path('../../templates/puma.erb', __FILE__)
-    template = ERB.new(File.read(template_path)).result(binding)
-    destination = "#{shared_path}/puma.rb"
-    upload! StringIO.new(template), destination
+    on roles(:app) do 
+      template_path = File.expand_path('../../templates/puma.erb', __FILE__)
+      template = ERB.new(File.read(template_path)).result(binding)
+      destination = "#{shared_path}/puma.rb"
+      upload! StringIO.new(template), destination
+    end
   end
 
   desc "setup eye files"

@@ -13,9 +13,8 @@ namespace :eye do
   end
 
   desc "setup eye files"
-  task :setup do 
+  task :setup => :setup_puma_config do 
     on roles(:app) do
-      invoke :setup_puma_config
       template_path = File.expand_path('../../templates/monitor.erb', __FILE__)
       template = ERB.new(File.read(template_path)).result(binding)
       destination = "#{shared_path}/monitor.eye"

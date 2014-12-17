@@ -4,10 +4,12 @@ namespace :eye do
 
   desc "setup eye files"
   task :setup do 
-    template_path = File.expand_path('../../templates/monitor.erb', __FILE__)
-    monitor_config = ERB.new(File.read(template_path)).result(binding)
-    destination = File.expand_path('../../../config/monitor.eye', __FILE__)
-    File.write(destination, monitor_config)
+    on roles(:app) do
+      template_path = File.expand_path('../../templates/monitor.erb', __FILE__)
+      template = ERB.new(File.read(template_path)).result(binding)
+      destination = File.expand_path('../../../config/monitor.eye', __FILE__)
+      upload! StringIO.new(template), destination
+    end 
   end
 
   desc "loads the eye configuration"

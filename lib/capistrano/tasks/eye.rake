@@ -7,7 +7,7 @@ namespace :eye do
     on roles(:app) do
       template_path = File.expand_path('../../templates/monitor.erb', __FILE__)
       template = ERB.new(File.read(template_path)).result(binding)
-      destination = File.expand_path('../../../config/monitor.eye', __FILE__)
+      destination = "#{current_path}/config/monitor.eye"
       upload! StringIO.new(template), destination
     end 
   end

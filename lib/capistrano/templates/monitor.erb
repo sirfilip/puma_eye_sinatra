@@ -1,22 +1,22 @@
 Eye.config do 
-  logger File.expand_path('../../log/eye.log', __FILE__)
+  logger File.expand_path('<%= shared_path %>/log/eye.log', __FILE__)
 end
 
 Eye.application 'sinatra' do 
   
-  working_dir File.expand_path('../../', __FILE__)
-  env 'BUNDLE_GEMFILE' => File.expand_path('../../Gemfile', __FILE__)
+  working_dir <%= current_path %>
+  env 'BUNDLE_GEMFILE' => '<%= current_path %>/Gemfile'
   
   stdall 'log/trash.log'
 
   process :puma do 
     stdall 'log/puma.log'
     
-    start_command '/home/filip/.rvm/bin/rvm 2.1.5 do bundle exec puma -C config/puma.rb'
+    start_command '/home/filip/.rvm/bin/rvm 2.1.5 do bundle exec puma -C <%= current_path %>/config/puma.rb'
     restart_command "kill -USR2 {PID}"
     stop_signals [:TERM, 5.seconds, :KILL]
     
-    pid_file "/home/filip/Desktop/my-app-published/shared/temp/pids/puma.pid"
+    pid_file "<%= shared_path %>/temp/pids/puma.pid"
     
     daemonize false
     

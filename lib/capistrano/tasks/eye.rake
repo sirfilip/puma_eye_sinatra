@@ -7,16 +7,17 @@ namespace :eye do
     on roles(:app) do
       template_path = File.expand_path('../../templates/monitor.erb', __FILE__)
       template = ERB.new(File.read(template_path)).result(binding)
-      destination = "#{current_path}/config/monitor.eye"
+      destination = "#{shared_path}/monitor.eye"
       upload! StringIO.new(template), destination
     end 
   end
+  before "deploy:check", "eye:setup"
 
   desc "loads the eye configuration"
   task :load do 
     on roles(:app) do 
       within current_path do 
-        execute :bundle, "exec eye load #{current_path}/config/monitor.eye"
+        execute :bundle, "exec eye load #{shared_path}/monitor.eye"
       end
     end
   end

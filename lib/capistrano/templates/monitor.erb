@@ -12,7 +12,7 @@ Eye.application 'sinatra' do
   process :puma do 
     stdall 'log/puma.log'
     
-    start_command '/home/filip/.rvm/bin/rvm 2.1.5 do bundle exec puma -C <%= current_path %>/config/puma.rb'
+    start_command '/home/filip/.rvm/bin/rvm 2.1.5 do bundle exec puma -C <%= shared_path %>/puma.rb'
     restart_command "kill -USR2 {PID}"
     stop_signals [:TERM, 5.seconds, :KILL]
     

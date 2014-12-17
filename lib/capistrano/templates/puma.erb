@@ -1,0 +1,4 @@
+bind 'unix://<%= shared_path %>/temp/sockets/puma.sock'
+directory '<%= current_path %>'
+pidfile "<%= shared_path %>/temp/pids/puma.pid"
+daemonize true

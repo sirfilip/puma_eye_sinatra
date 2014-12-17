@@ -6,7 +6,7 @@ namespace :eye do
   task :setup do 
     template_path = File.expand_path('../../templates/monitor.erb', __FILE__)
     monitor_config = ERB.new(File.read(template_path)).result(binding)
-    destination = File.expand_path('../../../config/monitor.eye')
+    destination = File.expand_path('../../../config/monitor.eye', __FILE__)
     File.write(destination, monitor_config)
   end
 
